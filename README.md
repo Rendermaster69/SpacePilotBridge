@@ -10,6 +10,8 @@ It also adds features the original software never had, including application pro
 
 <a href='https://ko-fi.com/M2P7299RQT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
+BTW I'm like the worst developer, so this is entirely vibecoded. Please forgive me.
+
 ---
 
 ## Why?
