@@ -8,6 +8,8 @@ It reads the original SpacePilot directly through HID and can expose it as a mod
 
 It also adds features the original software never had, including application profiles, LCD animations, widgets, custom controls, 2D navigation, editing controls, diagnostics, LED effects, and more.
 
+<a href='https://ko-fi.com/M2P7299RQT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ---
 
 ## Why?
@@ -717,3 +719,5 @@ The SpacePilot is old.
 It does not need to be obsolete.
 
 SpacePilotBridge exists to keep great hardware useful on modern systems.
+
+<a href='https://ko-fi.com/M2P7299RQT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
