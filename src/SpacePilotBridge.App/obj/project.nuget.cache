@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "upHHoJ0jMcs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Luke Aarle\\Downloads\\SpacePilotBridge_v0.9.2\\src\\SpacePilotBridge.App\\SpacePilotBridge.App.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Luke Aarle\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.12\\microsoft.net.illink.tasks.10.0.12.nupkg.sha512",
+    "C:\\Users\\Luke Aarle\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\10.0.12\\microsoft.netcore.app.runtime.win-x64.10.0.12.nupkg.sha512",
+    "C:\\Users\\Luke Aarle\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\10.0.12\\microsoft.windowsdesktop.app.runtime.win-x64.10.0.12.nupkg.sha512",
+    "C:\\Users\\Luke Aarle\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\10.0.12\\microsoft.aspnetcore.app.runtime.win-x64.10.0.12.nupkg.sha512",
+    "C:\\Users\\Luke Aarle\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.57\\microsoft.windows.sdk.net.ref.10.0.19041.57.nupkg.sha512"
+  ],
+  "logs": []
+}

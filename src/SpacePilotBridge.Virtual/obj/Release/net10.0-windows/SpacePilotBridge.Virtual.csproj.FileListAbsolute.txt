@@ -1,0 +1,15 @@
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\bin\Release\net10.0-windows\SpacePilotBridge.Virtual.deps.json
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\bin\Release\net10.0-windows\SpacePilotBridge.Virtual.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\bin\Release\net10.0-windows\SpacePilotBridge.Virtual.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\bin\Release\net10.0-windows\SpacePilotBridge.Core.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\bin\Release\net10.0-windows\SpacePilotBridge.Core.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.csproj.AssemblyReference.cache
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.AssemblyInfoInputs.cache
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.AssemblyInfo.cs
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.csproj.CoreCompileInputs.cache
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePil.7879C8A9.Up2Date
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\refint\SpacePilotBridge.Virtual.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\SpacePilotBridge.Virtual.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Virtual\obj\Release\net10.0-windows\ref\SpacePilotBridge.Virtual.dll

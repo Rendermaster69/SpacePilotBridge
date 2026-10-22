@@ -1,0 +1,8 @@
+{
+  "name": "Terminal Rain",
+  "effect": "Digital Rain",
+  "fps": 6,
+  "speed": 1.2,
+  "text": "",
+  "invert": false
+}

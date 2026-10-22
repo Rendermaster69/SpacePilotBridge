@@ -1,0 +1,5 @@
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\dist\app-upgrade\SpacePilotBridge.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\dist\app-upgrade\SpacePilotBridge.Core.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\dist\app-upgrade\SpacePilotBridge.Virtual.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\dist\app-upgrade\SpacePilotBridge.Lcd.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\dist\app-upgrade\SpacePilotBridge.exe

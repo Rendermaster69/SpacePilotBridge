@@ -1,0 +1,8 @@
+{
+  "name": "Hyperdrive",
+  "effect": "Warp Tunnel",
+  "fps": 8,
+  "speed": 1.8,
+  "text": "WARP",
+  "invert": false
+}

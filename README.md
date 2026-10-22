@@ -1,725 +1,114 @@
-# SpacePilotBridge
+# SpacePilotBridge v0.9.2
 
-Bring the original **3Dconnexion SpacePilot** back to life on modern Windows.
+## v0.9.2 hotfix
 
-SpacePilotBridge is an open-source compatibility layer for the legacy **3Dconnexion SpacePilot (USB VID:PID `046D:C625`)**, designed to make it useful again with current creative, CAD, 3D, editing, and general desktop applications.
+- LCD animations now use backpressure: the next frame is not advanced until the previous 240x64 frame has fully flushed.
+- LCD host timeouts are longer and animation pacing adapts to measured physical LCD flush time. Imported GIFs default to 2 fps before adaptive pacing.
+- Per-app mouse/editor controls are now explicitly opt-in. Global/Fusion/Maya/ZBrush profiles cannot accidentally pan the Windows mouse.
+- Switching profiles immediately releases any held MMB/Space/LMB rotate gesture.
+- Controls tab includes an **Enable mouse/keyboard/editor controls for this profile** switch for custom apps.
 
-It reads the original SpacePilot directly through HID and can expose it as a modern virtual SpaceMouse for applications that support 3Dconnexion devices.
+SpacePilotBridge keeps the original Logitech/3Dconnexion SpacePilot (USB `046D:C625`) useful on current Windows systems. The physical SpacePilot is read directly; its 6DOF data can continue to feed the existing virtual SpaceMouse/3DxWare path for CAD and 3D applications, while v0.9 adds a configurable per-application control layer for editing and 2D software.
 
-It also adds features the original software never had, including application profiles, LCD animations, widgets, custom controls, 2D navigation, editing controls, diagnostics, LED effects, and more.
+v0.9 is an **app-only upgrade** for an already working v0.8 installation. The existing virtual HID driver is unchanged.
 
-<a href='https://ko-fi.com/M2P7299RQT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+## Upgrade
 
-BTW I'm like the worst developer, so this is entirely vibecoded. Please forgive me.
+Run:
 
----
+`Upgrade-App-Only.cmd`
 
-## Why?
+The current virtual SpaceMouse/game-controller driver is left untouched.
 
-The original SpacePilot is still a great piece of hardware:
+## New in v0.9
 
-- 6DOF controller
-- Large number of physical buttons
-- Monochrome 240×64 LCD
-- LED illumination
-- Excellent build quality
+### Configurable programs and profiles
 
-Unfortunately, modern 3Dconnexion drivers no longer properly support it.
+The **Apps** tab is no longer limited to built-in application names.
 
-SpacePilotBridge aims to keep the hardware useful without requiring modifications to the SpacePilot itself.
+- Foreground applications are learned automatically and sorted by most recently used.
+- **Add executable...** can add any `.exe` manually.
+- **Create profile** creates a completely custom profile and can immediately assign it to the selected app.
+- Any discovered executable can be assigned to any profile.
+- Buttons and six SpacePilot axes can then be customized independently for that profile.
 
----
+This means Blender, Premiere Pro, After Effects, a proprietary in-house application, a game or any other Windows application can have its own SpacePilot behavior without a new SpacePilotBridge build.
 
-# Features
+### Six-axis control editor
 
-## Native 6DOF navigation
+The old one-mode editor is replaced by **Controls**. Every profile can independently configure:
 
-The physical SpacePilot is translated into a virtual modern SpaceMouse device.
+- `Tx`
+- `Ty`
+- `Tz`
+- `Rx`
+- `Ry`
+- `Rz`
 
-This allows native 3D navigation in applications such as:
+Each axis has:
 
-- Autodesk Fusion
-- Autodesk Maya
-- ZBrush
-- other applications supported by current 3DxWare versions
+- positive action
+- negative action
+- neutral/release action
+- deadzone
+- rate
+- repeat on/off
+- custom positive/negative shortcut values
 
-The six motion axes remain available:
+Available actions include pan, zoom, canvas rotation, Resolve shuttle, frame stepping, Go To In/Out, horizontal/vertical scrolling and arbitrary keyboard shortcuts.
 
-- Translation X
-- Translation Y
-- Translation Z
-- Rotation X
-- Rotation Y
-- Rotation Z
+### DaVinci Resolve default profile
 
-SpacePilotBridge does **not** emulate the 6DOF puck as a mouse.
+The included **Resolve preset** is designed around physical SpacePilot gestures:
 
----
+- twist `Rz` right -> play/shuttle forward (`L`)
+- twist `Rz` left -> play/shuttle backward (`J`)
+- return twist to centre -> stop (`K`)
+- push left/right (`Tx`) -> previous/next frame
+- push up/down (`Ty`) -> Go To Out / Go To In
+- tap physical **Top** -> Space (play/pause)
 
-## Application Profiles
+All of these are ordinary profile mappings. They can be changed in **Controls** and **Buttons**; the preset is not hard-coded into Resolve-specific logic.
 
-SpacePilotBridge automatically detects applications as you use them.
+### Photoshop / Illustrator pan + zoom + rotate
 
-Detected applications are stored in an application list and sorted by **Last Used**.
+Built-in 2D presets now map multiple axes rather than only pan:
 
-Each executable can be assigned to its own profile.
+**Adobe Photoshop**
 
-Example:
+- `Tx` / `Ty` -> canvas pan using Space + left drag
+- `Tz` -> zoom
+- `Rz` -> Rotate View gesture
 
-```text
-Resolve.exe        → DaVinci Resolve
-maya.exe           → Maya
-Fusion360.exe      → Fusion 360
-Photoshop.exe      → Adobe Photoshop
-Illustrator.exe    → Adobe Illustrator
-```
+**Adobe Illustrator**
 
-Custom applications can also be added manually.
+- `Tx` / `Ty` -> canvas pan using middle-button drag
+- `Tz` -> zoom
+- `Rz` -> Rotate View gesture
 
-You can create your own profiles for almost any Windows application.
+The same actions are available to custom profiles.
 
----
+### Spotify / Now Playing LCD widget
 
-# Custom Control System
+A new **Now Playing** LCD widget reads Spotify title/artist from the Windows system media-session API. It does not require a Spotify Web API token or a Spotify login inside SpacePilotBridge.
 
-Each profile can define its own controls.
+Choose `Now Playing` in any of the four LCD widget slots. If no Spotify media session is available the widget shows `SPOTIFY -`.
 
-The six SpacePilot axes can be mapped independently:
+### LCD isolation retained
 
-```text
-Tx
-Ty
-Tz
-Rx
-Ry
-Rz
-```
+v0.8's separate LCD helper process remains in place. A wedged synchronous LCD HID call can be recovered by killing/restarting only the helper rather than freezing the main tray app.
 
-Possible actions include:
+### Existing C631 button limitation
 
-- Native SpaceMouse movement
-- Vertical scrolling
-- Horizontal scrolling
-- Zoom
-- Keyboard shortcuts
-- Frame stepping
-- Timeline navigation
-- Playback control
-- Application-specific actions
-- Disabled
-- Custom actions
+The virtual 3Dconnexion device still identifies as a SpaceMouse Pro Wireless (`256F:C631`) because that is the compatibility identity already proven on this installation. 3DxWare therefore only displays the button slots that model exposes. All 21 physical SpacePilot buttons remain available in SpacePilotBridge's own **Buttons** tab for shortcuts, bridge actions and carrier-slot mappings.
 
-Positive and negative axis directions can have separate actions.
+## Notes
 
-Profiles can also have their own:
+- CAD/3D motion for Fusion, Maya and ZBrush can remain on the native virtual-SpaceMouse path.
+- Editor/2D actions are only emitted by profiles that explicitly configure them.
+- If an application has customized keyboard shortcuts, change the corresponding SpacePilotBridge shortcut/action to match.
+- Spotify metadata depends on Spotify publishing a Windows media session. The bridge fails closed to `SPOTIFY -` if that session is unavailable.
 
-- deadzones
-- sensitivity
-- repeat speed
-- axis direction
-- motion filtering
 
----
-
-# DaVinci Resolve
-
-SpacePilotBridge includes a Resolve-oriented editing profile.
-
-A typical configuration can use:
-
-```text
-Twist left/right
-→ reverse / forward playback
-
-Release twist
-→ stop
-
-Push left/right
-→ previous / next frame
-
-Push up/down
-→ navigate In / Out points
-
-Top button
-→ Play / Pause
-```
-
-The controls can be changed in the SpacePilotBridge settings.
-
-The goal is to make the SpacePilot behave more like a compact editing controller instead of a 3D mouse while Resolve is active.
-
----
-
-# Photoshop & Illustrator
-
-SpacePilotBridge can switch automatically to a 2D navigation profile when Adobe applications are active.
-
-Possible mappings include:
-
-```text
-Tx → horizontal navigation
-Ty → vertical navigation
-Tz → zoom
-Rz → custom rotate action
-```
-
-The Windows mouse cursor itself is intentionally **not moved by SpacePilotBridge**.
-
-This prevents accidental cursor movement when switching between applications such as browsers, CAD software, Photoshop, and Illustrator.
-
-Scrolling can use:
-
-- Shift + wheel
-- native horizontal wheel
-- arrow-key based navigation
-
-depending on the application.
-
----
-
-# Browser / Desktop Navigation
-
-A Global profile can provide pointerless scrolling in applications such as:
-
-- Brave
-- Chrome
-- Firefox
-- Windows applications
-- document viewers
-
-Example:
-
-```text
-Tx → horizontal scroll
-Ty → vertical scroll
-```
-
-The mouse pointer stays in its current position.
-
----
-
-# Physical Button Mapping
-
-SpacePilotBridge reads the original physical SpacePilot buttons directly.
-
-This means the bridge can use buttons that are no longer exposed by modern 3DxWare.
-
-Buttons include controls such as:
-
-- 1
-- 2
-- 3
-- 4
-- 5
-- 6
-- Esc
-- Alt
-- Shift
-- Ctrl
-- Top
-- Front
-- Right
-- Left
-- Fit
-- Config
-- Dominant
-- Speed +
-- Speed -
-- Rotation Lock
-
-Depending on the selected action, a physical button can perform:
-
-- a virtual SpaceMouse button
-- a keyboard shortcut
-- a built-in SpacePilotBridge function
-- a profile action
-- a disabled action
-
----
-
-## Short Press / Long Press
-
-Buttons can support different actions depending on how long they are held.
-
-For example:
-
-```text
-Left short press
-→ Left View
-
-Right short press
-→ Right View
-
-Left or Right long press
-→ Back View
-```
-
-This is useful because the original SpacePilot contains more physical controls than some modern virtual SpaceMouse models expose.
-
----
-
-# LCD Support
-
-The original SpacePilot contains a:
-
-**240 × 64 monochrome LCD**
-
-SpacePilotBridge can control it directly.
-
-Supported LCD content includes:
-
-- status information
-- application/profile information
-- widgets
-- static images
-- animations
-- custom screensavers
-
----
-
-## LCD Widgets
-
-Available widget concepts include:
-
-- Active profile
-- Active application
-- SpacePilot sensitivity
-- Motion information
-- Clock
-- Latency
-- LED mode
-- Controller status
-- Now Playing / media information
-
-Example:
-
-```text
-PROFILE   FUSION 360
-SPEED     1.00X
-LATENCY   3.2 MS
-```
-
----
-
-## Spotify / Now Playing
-
-SpacePilotBridge can display media information from Windows media sessions.
-
-For supported media players this can show information such as:
-
-```text
-DAFT PUNK
-VERIDIS QUO
-```
-
-The feature is intended to work with applications such as Spotify without requiring the SpacePilot LCD to become application-specific.
-
----
-
-# Screensavers
-
-Custom SpacePilot LCD screensavers can be stored in:
-
-```text
-%LOCALAPPDATA%\SpacePilotBridge\Screensavers
-```
-
-Supported sources include formats such as:
-
-- GIF
-- PNG
-- BMP
-- JPG
-- `.spbsaver` presets
-
-Images are converted for the SpacePilot's 1-bit monochrome display.
-
----
-
-## Dithering
-
-Different monochrome conversion methods are available for images:
-
-- Threshold
-- Bayer 2×2
-- Bayer 4×4
-- Floyd–Steinberg
-
-This makes photographs and detailed artwork much more usable on the 240×64 display.
-
----
-
-## Screensaver Playlist
-
-Multiple screensavers can be selected for automatic playback.
-
-Options include:
-
-- playlist interval
-- shuffle
-- selected screensavers
-- idle activation
-
----
-
-## Idle Screensaver
-
-The display can automatically start a screensaver after a period without SpacePilot input.
-
-Moving the controller or pressing a button can return the display to its normal status view.
-
----
-
-## LCD Performance
-
-The SpacePilot LCD is old hardware and has a relatively slow physical refresh rate.
-
-SpacePilotBridge therefore uses conservative frame pacing rather than attempting to display GIFs at their original frame rate.
-
-The LCD writer attempts to:
-
-1. complete the current LCD frame;
-2. wait for the physical transfer to finish;
-3. only then advance to the next animation frame.
-
-Animation speed may therefore be lower than the original GIF frame rate.
-
-This is intentional.
-
----
-
-# LCD Recovery
-
-The LCD system runs separately from the main controller logic.
-
-This allows SpacePilotBridge to restart LCD handling without stopping 3D navigation.
-
-A **Recover LCD** function can restart the LCD connection if the display becomes unresponsive.
-
-LCD stability is still considered an area under active development due to the age and behavior of the original SpacePilot HID implementation.
-
----
-
-# LED Control
-
-The SpacePilot LED can be controlled by SpacePilotBridge.
-
-Modes can include:
-
-- Off
-- On
-- Activity
-- Slow Blink
-- Fast Blink
-- Heartbeat
-- Breathe-style animation
-- Screensaver activity
-
-The original hardware only exposes basic LED on/off control, so brightness-style effects are generated using timing.
-
----
-
-# Diagnostics
-
-A built-in Diagnostics page helps troubleshoot the bridge.
-
-Information can include:
-
-```text
-Physical SpacePilot
-Virtual SpaceMouse
-Active Application
-Active Profile
-
-Tx / Ty / Tz
-Rx / Ry / Rz
-
-Buttons
-
-Last latency
-Average latency
-Peak latency
-Reports/sec
-
-LCD status
-LCD recovery count
-Screensaver status
-Memory usage
-```
-
----
-
-# Latency Meter
-
-SpacePilotBridge measures the delay between receiving a physical SpacePilot HID report and forwarding the corresponding output.
-
-This can help identify problems with:
-
-- USB input
-- virtual HID output
-- system load
-- application processing
-
----
-
-# Startup Options
-
-SpacePilotBridge can:
-
-- start with Windows
-- start minimized
-- run silently in the system tray
-
-The program is designed to remain running while the SpacePilot is connected.
-
----
-
-# Dark Compact UI
-
-The settings application uses a compact dark interface designed for quick configuration.
-
-Main sections include:
-
-- General
-- Apps
-- Buttons
-- Controls
-- LCD
-- Screensavers
-- LED
-- Diagnostics
-
-Settings are saved automatically.
-
-There is no need to manually press a Save button after every change.
-
----
-
-# Architecture
-
-The basic data path is:
-
-```text
-Original SpacePilot
-046D:C625
-        │
-        ▼
-SpacePilotBridge
-        │
-        ├── Application profiles
-        ├── Button mapping
-        ├── LCD
-        ├── LED
-        ├── Editing controls
-        └── Diagnostics
-        │
-        ▼
-Virtual modern SpaceMouse
-        │
-        ▼
-Current 3DxWare
-        │
-        ▼
-Fusion / Maya / ZBrush / etc.
-```
-
-This allows modern applications to see a supported 3Dconnexion-style device while SpacePilotBridge communicates directly with the legacy hardware.
-
----
-
-# Requirements
-
-Recommended environment:
-
-- Windows 10 or Windows 11
-- Original 3Dconnexion SpacePilot
-- USB VID:PID `046D:C625`
-- Current 3Dconnexion / 3DxWare software
-- .NET runtime / SDK required by the selected build
-- Administrator access for initial virtual HID driver installation
-
----
-
-# Installation
-
-## Existing installation
-
-If the virtual SpaceMouse driver is already installed and working, update only the application:
-
-```text
-Upgrade-App-Only.cmd
-```
-
-This is the recommended update method.
-
-It preserves the known-working virtual HID driver.
-
----
-
-## Important: Virtual Driver
-
-Do **not** update or reinstall the virtual HID driver unless you specifically need to.
-
-The SpaceMouse-only virtual driver is currently the recommended configuration for normal 3D use.
-
-Experimental virtual driver variants may expose additional HID functionality, but can interfere with 3DxWare device detection.
-
-If 3D navigation stops working after experimenting with the virtual driver, use:
-
-```text
-Rollback-VirtualDriver-SpaceMouseOnly.cmd
-```
-
-and restart Windows if necessary.
-
----
-
-# Supported Hardware
-
-Currently targeted hardware:
-
-| Device | VID | PID | Status |
-|---|---:|---:|---|
-| 3Dconnexion SpacePilot | `046D` | `C625` | Primary target |
-
-Other legacy 3Dconnexion devices may require additional protocol mappings.
-
----
-
-# Current Status
-
-SpacePilotBridge is an experimental community project.
-
-Core functionality such as:
-
-- SpacePilot HID input
-- 6DOF motion
-- virtual SpaceMouse output
-- profiles
-- button mapping
-- LCD control
-- screensavers
-- LED control
-- editing actions
-
-is implemented, but some areas are still being refined.
-
-In particular, the original SpacePilot LCD can behave unpredictably when continuously updated for long periods.
-
-Testing, bug reports, and hardware observations are welcome.
-
----
-
-# Known Limitations
-
-### 3DxWare button names
-
-The virtual SpaceMouse currently identifies as a modern SpaceMouse-class device.
-
-3DxWare therefore only displays the button set associated with that virtual device.
-
-The original SpacePilot has more physical buttons.
-
-SpacePilotBridge works around this by handling additional physical buttons in its own button mapping system.
-
-### LCD speed
-
-The SpacePilot LCD is not a modern high-refresh display.
-
-Complex animations should be designed for low frame rates.
-
-Approximately **1–3 FPS** is generally much more appropriate than typical GIF frame rates.
-
-### Application shortcuts
-
-Some application controls are implemented through keyboard or wheel commands.
-
-Applications with administrator privileges may reject input from a non-elevated SpacePilotBridge process.
-
-### Adobe canvas rotation
-
-Analog canvas rotation is difficult to implement without pointer movement because some Adobe rotate-view workflows are based on dragging.
-
-SpacePilotBridge intentionally avoids moving the Windows cursor.
-
----
-
-# Recommended Screensaver Format
-
-For best results:
-
-```text
-Resolution: 240 × 64
-Color:      monochrome / 1-bit
-FPS:        1–3
-Loop:       seamless
-Contrast:   high
-```
-
-Avoid very fast motion or animation that depends on high temporal resolution.
-
-The physical LCD refreshes much more slowly than a normal computer display.
-
----
-
-# Development
-
-The project combines several Windows technologies:
-
-- raw HID access
-- Windows virtual HID
-- 3Dconnexion-compatible reports
-- Win32 input handling
-- Windows application detection
-- LCD feature reports
-- media session APIs
-- application-specific profiles
-
-The goal is to keep as much functionality as possible outside individual application plugins.
-
----
-
-# Contributing
-
-Bug reports and contributions are welcome.
-
-Useful information to include in an issue:
-
-```text
-Windows version
-SpacePilotBridge version
-3DxWare version
-Application + version
-Physical SpacePilot detected: yes/no
-Virtual SpaceMouse detected: yes/no
-Relevant Diagnostics output
-```
-
-For LCD issues, also mention:
-
-- screensaver/image used
-- approximate runtime before failure
-- configured FPS
-- whether Recover LCD works
-
----
-
-# Disclaimer
-
-SpacePilotBridge is an independent project and is not affiliated with or endorsed by 3Dconnexion, Logitech, Autodesk, Adobe, Blackmagic Design, Maxon, Spotify, or other referenced software/hardware vendors.
-
-All product names and trademarks belong to their respective owners.
-
-Use experimental virtual HID drivers at your own risk.
-
----
-
-# Project Goal
-
-The SpacePilot is old.
-
-It does not need to be obsolete.
-
-SpacePilotBridge exists to keep great hardware useful on modern systems.
-
-<a href='https://ko-fi.com/M2P7299RQT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+## v0.9.2 safety changes
+The bridge never changes the Windows cursor position. Pointer-drag based pan/rotate modes were removed. Photoshop/Illustrator defaults are pointerless scroll/zoom mappings. Fusion Horizon Lock suppresses HID Ry, the SpaceMouse roll axis. LCD animations use conservative report pacing and full-frame writes for the original slow 240x64 display.

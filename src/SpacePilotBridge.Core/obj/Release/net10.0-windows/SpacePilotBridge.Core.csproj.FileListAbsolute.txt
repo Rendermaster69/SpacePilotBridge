@@ -1,0 +1,11 @@
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\bin\Release\net10.0-windows\SpacePilotBridge.Core.deps.json
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\bin\Release\net10.0-windows\SpacePilotBridge.Core.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\bin\Release\net10.0-windows\SpacePilotBridge.Core.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\SpacePilotBridge.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\SpacePilotBridge.Core.AssemblyInfoInputs.cache
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\SpacePilotBridge.Core.AssemblyInfo.cs
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\SpacePilotBridge.Core.csproj.CoreCompileInputs.cache
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\SpacePilotBridge.Core.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\refint\SpacePilotBridge.Core.dll
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\SpacePilotBridge.Core.pdb
+C:\Users\Luke Aarle\Downloads\SpacePilotBridge_v0.9.2\src\SpacePilotBridge.Core\obj\Release\net10.0-windows\ref\SpacePilotBridge.Core.dll

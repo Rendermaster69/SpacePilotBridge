@@ -1,0 +1,8 @@
+{
+  "name": "Inverse Scanner",
+  "effect": "Scanner",
+  "fps": 8,
+  "speed": 1.4,
+  "text": "ONLINE",
+  "invert": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Deep Orbit",
+  "effect": "Orbit",
+  "fps": 6,
+  "speed": 0.8,
+  "text": "",
+  "invert": false
+}
